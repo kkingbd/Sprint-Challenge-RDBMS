@@ -14,17 +14,6 @@ router.get('/', (req, res) => {
 		});
 });
 
-router.get('/:id', (req, res) => {
-	const uniqueCohort = req.params.id;
-	db.from('projects')
-		.where({ id: uniqueCohort })
-		.then(project => {
-			res.status(200).json(cohort);
-		})
-		.catch(err => {
-			res.status(500).json(err);
-		});
-});
 router.get("/:id/actions", (req, res) => {
 	const { id } = req.params;
 	db('projects').where('id', id)
@@ -44,6 +33,18 @@ router.get("/:id/actions", (req, res) => {
     })
 
 })
+
+router.get('/:id', (req, res) => {
+	const uniqueCohort = req.params.id;
+	db.from('projects')
+		.where({ id: uniqueCohort })
+		.then(project => {
+			res.status(200).json(project);
+		})
+		.catch(err => {
+			res.status(500).json(err);
+		});
+});
 
 router.post('/', (req, res) => {
 	const projects = req.body;
